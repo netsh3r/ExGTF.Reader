@@ -1,0 +1,17 @@
+@fileName@.cs
+using System;
+
+<^..>
+var localName = userName+"1";
+<..^>
+namespace EGTF.Reader
+{
+    public class Class1
+    {
+        //Console.WriteLine("Hello World");
+        <#cw#>
+        //Console.WriteLine("Дмитрий-123");
+        Console.WriteLine("<$userName$>-<$password$>");
+        Console.WriteLine("<$localName$>");
+    }
+}

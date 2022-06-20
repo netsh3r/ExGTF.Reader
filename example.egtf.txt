@@ -1,0 +1,87 @@
+@.cs - итоговое расширение файла (если @.* -> берем название файла, если @_name_@.* берем название из переменной в исполняемом файле)
+
+код
+----------------------------- 
+using System;
+
+namespace EGTF.Reader
+{
+    public class Class1
+    {
+        </#name#>
+    }
+}
+-----------------------------
+
+</#name#>
+</> -> означа
+
+1. формат для выведения построчно
+</#_someName_> - заменяет строчку
+example:
+public void M() {<#test#>
+}
+
+test: 'Console.WriteLine("Hello");' 
+public void M() {
+    Console.WriteLine("Hello");
+}
+
+example:
+public void M() {
+    <#test#><#test#>
+}
+
+test: 'Console.WriteLine("Hello");' 
+public void M() {
+    Console.WriteLine("Hello");
+    Console.WriteLine("Hello");
+}
+
+2. формат для вставки в код
+ex:
+name: 'Console.WriteLine(123);';
+public void M() {
+    <$name$><$name$>
+}
+result:
+public void M() {
+    Console.WriteLine(123);Console.WriteLine(123);
+}
+
+3. формат для цикличного отображения (? мб какой то псевдокод?, а мб на шарпе)
+example:
+public void M()
+{
+    <@@
+    var s = 0;
+    var number = s+123;
+    var result = $"Console.WriteLine({number})";
+    @@> 
+    </#result#>
+}
+
+result:
+public void M()
+{
+    Console.WriteLine(123);
+}
+
+Ex2:
+
+
+example:
+public void M()
+{
+    <^..>
+    var number = count+123; //где count объявлен в исполняемом файле и равен 0
+    var result = $"Console.WriteLine({number})";
+    <..^> 
+    </#result#>
+}
+
+result:
+public void M()
+{
+    Console.WriteLine(123);
+}
