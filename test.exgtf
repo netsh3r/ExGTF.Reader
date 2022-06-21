@@ -6,35 +6,14 @@ namespace EGTF.Reader
     public class Class1
     {
         //Console.WriteLine("Hello World");
-        <#cw#>
+        //<#userName#>
         //Console.WriteLine("Дмитрий-123");
         Console.WriteLine("<$userName$>-<$password$>");
         [#Console.WriteLine("<$users$>-<$users$>");#]
         [<i:!{1..10}!Console.WriteLine("{!i!}");>]
-        [##
-        //hello
-        Console.WriteLine("i-<$users$>");
-        ##]
-    }
-}
-
-
-@fileName@.cs
-using System;
-
-namespace EGTF.Reader
-{
-    public class Class1
-    {
-        //Console.WriteLine("Hello World");
-        <#cw#>
-        //Console.WriteLine("Дмитрий-123");
-        Console.WriteLine("<$userName$>-<$password$>");
-        [#<i:%$users$%>Console.WriteLine("<$users$>-<$users$>");#]
-        [<i:%[1..10]%Console.WriteLine("{%i%}");>]
         [##<i:%$users$%
         //hello
-        Console.WriteLine("{%i%}-<$users$>");
+        Console.WriteLine("{%i%}-<$userName$>");
         >##]
     }
 }

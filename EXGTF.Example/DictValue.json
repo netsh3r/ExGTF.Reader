@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "userName",
+    "Value": "dmit"
+  },
+  {
+    "Name": "password",
+    "Value": "123"
+  },
+  {
+    "Name": "users",
+    "ObjectType": "Array",
+    "Value": [
+      "1","2"
+    ]
+  }
+]

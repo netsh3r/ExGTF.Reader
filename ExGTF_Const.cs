@@ -25,9 +25,12 @@ namespace ExGTF.Reader
             public static readonly Regex LocalArrayLine = new Regex(@"(\[<(.*)>\])");
 
             /// <summary> Аргумент массива внутренних значений </summary>
-            // public static readonly Regex LocalArrayLineArg = new Regex(@"((\w*):(!{(\d*)..(\d*)}!))(.*)({!(\w*)!})(.*)");
+            public static readonly Regex LocalArrayLineArg = new Regex(@"((\w*):(!{(\d*)..(\d*)}!))(.*)({!(\w*)!})(.*)");
 
             public static readonly Regex ArrayMultiLine = new Regex(@"\[##<(\w*):%\$(\w*)\$%");
+
+            /// <summary СВойство массива </summary>
+            public static readonly Regex ArrayProps = new Regex(@"({%(\w*)%})");
         }
     }
 }
