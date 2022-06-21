@@ -1,9 +1,6 @@
 @fileName@.cs
 using System;
 
-<^..>
-var localName = userName+"1";
-<..^>
 namespace EGTF.Reader
 {
     public class Class1
@@ -12,6 +9,7 @@ namespace EGTF.Reader
         <#cw#>
         //Console.WriteLine("Дмитрий-123");
         Console.WriteLine("<$userName$>-<$password$>");
-        Console.WriteLine("<$localName$>");
+        [#Console.WriteLine("<$users$>");#]
+        [<i:!{1..10}!Console.WriteLine("{!i!}")>]
     }
 }

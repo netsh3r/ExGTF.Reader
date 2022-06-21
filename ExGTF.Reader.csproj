@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EXGTF.Example\**" />
+    <EmbeddedResource Remove="EXGTF.Example\**" />
+    <None Remove="EXGTF.Example\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="EXGTF.Constants.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="EXGTF.Constants.cs" />
+  </ItemGroup>
+
+</Project>

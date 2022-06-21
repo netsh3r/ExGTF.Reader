@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EGTF.Reader", "EGTF.Reader.csproj", "{1724B847-0D80-49B5-961E-9121D6CFDD0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExGTF.Reader", "ExGTF.Reader.csproj", "{1724B847-0D80-49B5-961E-9121D6CFDD0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXGTF.Example", "..\EXGTF.Example\EXGTF.Example.csproj", "{B2E88B10-8694-4646-9679-7A34D286D800}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExGTF.Example", "EXGTF.Example\ExGTF.Example.csproj", "{3182D702-E2BE-47C5-86FB-EFB3C98310D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{1724B847-0D80-49B5-961E-9121D6CFDD0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1724B847-0D80-49B5-961E-9121D6CFDD0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1724B847-0D80-49B5-961E-9121D6CFDD0E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2E88B10-8694-4646-9679-7A34D286D800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2E88B10-8694-4646-9679-7A34D286D800}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2E88B10-8694-4646-9679-7A34D286D800}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2E88B10-8694-4646-9679-7A34D286D800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3182D702-E2BE-47C5-86FB-EFB3C98310D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3182D702-E2BE-47C5-86FB-EFB3C98310D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3182D702-E2BE-47C5-86FB-EFB3C98310D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3182D702-E2BE-47C5-86FB-EFB3C98310D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
