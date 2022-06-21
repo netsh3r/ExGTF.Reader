@@ -24,20 +24,13 @@
                     @params.Add(d.Name, d.Value);
                 }
             }
-
+            
             var rd = new ExGTFReader(config.Provider.Template, @params);
-            rd.Create(config.Provider.Path);
-            //var testUrl = "C:/Users/dmitr/source/repos/RTN_Report";
-            //var test2Url = "C:/Users/dmitr/Documents/Tests/EGTF.Reader/";
-            //var rd = new ExGTFReader($"{testUrl}/EGTF.Reader/test.exgtf", 
-            //    new Dictionary<string, object>
-            //    {
-            //        { "userName", "dima" }, 
-            //        { "password", "123" }, 
-            //        { "cw", "Console.WriteLine(\"123\")" },
-            //        { "users", new[]{"1", "2"} }
-            //    });
-            //rd.Create(testUrl);
+            rd.Create(config.Provider.Path, "Form8_12SvodyReport");
+            var rdMap = new ExGTFReader(config.Map.Template, @params);
+            rdMap.Create(config.Provider.Path, "Form8_12ShowCaseMap");
+            var rdEntity = new ExGTFReader(config.Entity.Template, @params);
+            rdEntity.Create(config.Provider.Path, "Form8_12ShowCase");
         }
     }
 }

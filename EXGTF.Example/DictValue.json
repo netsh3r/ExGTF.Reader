@@ -1,17 +1,21 @@
 [
   {
-    "Name": "userName",
-    "Value": "dmit"
+    "Name": "table_rus_name",
+    "Value": "Форма_8_12"
   },
   {
-    "Name": "password",
-    "Value": "123"
+    "Name": "short_table_name",
+    "Value": "8_12"
   },
   {
-    "Name": "users",
+    "Name": "table_name",
+    "Value": "t_form_8_12"
+  },
+  {
+    "Name": "rowCodes",
     "ObjectType": "Array",
     "Value": [
-      "1","2"
+      "001", "002", "003", "004", "005", "006", "007", "008", "009"
     ]
   }
 ]

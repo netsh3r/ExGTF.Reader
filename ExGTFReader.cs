@@ -39,6 +39,7 @@ namespace ExGTF.Reader
                     if (ExGTF_Regex.SingleLine.IsMatch(line))
                     {
                         AppendSingleLine(line, sb);
+                        sb.AppendLine();
                     }
                     else if (ExGTF_Regex.LocalArrayLine.IsMatch(line))
                     {
@@ -51,6 +52,7 @@ namespace ExGTF.Reader
                     else if (ExGTF_Regex.Single.IsMatch(line))
                     {
                         AppendSingle(line, sb);
+                        sb.AppendLine();
                     }
                     else if (line.Contains("[##"))
                     {
@@ -102,14 +104,16 @@ namespace ExGTF.Reader
                 else if (ExGTF_Regex.Single.IsMatch(line))
                 {
                     AppendSingle(line, lSb);
+                    lSb.AppendLine();
                 }
                 else if (ExGTF_Regex.ArrayProps.IsMatch(line))
                 {
                     AppendBase(line, lSb, ExGTF_Regex.ArrayProps, "{0}");
+                    lSb.AppendLine();
                 }
                 else
                 {
-                    lSb.Append(line);
+                    lSb.AppendLine(line);
                 }
             }
 

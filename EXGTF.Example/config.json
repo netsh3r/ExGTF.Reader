@@ -1,14 +1,14 @@
 {
   "Provider": {
-    "Path": "C:/Users/dmitr/source/repos/RTN_Report",
-    "Template": "C:/Users/dmitr/source/repos/RTN_Report/EGTF.Reader/test.exgtf"
+    "Path": "C:\\Users\\dmitr\\Documents\\Tests",
+    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\RTN_reports\\reportProvider.exgtf"
   },
   "Map": {
-    "Path": "C:/Users/dmitr/source/repos/RTN_Report",
-    "Template": "C:/Users/dmitr/source/repos/RTN_Report/EGTF.Reader/test.exgtf"
+    "Path": "C:\\Users\\dmitr\\Documents\\Tests",
+    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\RTN_reports\\reportMap.exgtf"
   },
   "Entity": {
-    "Path": "C:/Users/dmitr/source/repos/RTN_Report",
-    "Template": "C:/Users/dmitr/source/repos/RTN_Report/EGTF.Reader/test.exgtf"
+    "Path": "C:\\Users\\dmitr\\Documents\\Tests",
+    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\RTN_reports\\rtnEntity.exgtf"
   }
 }
