@@ -73,6 +73,9 @@ namespace ExGTF.Reader
         private void AppendMultiArrayLine(string line, StringBuilder sb, StreamReader sr)
         {
             var lSb = new StringBuilder();
+            var dictNameValue = new Dictionary<string, Array>();
+            var baseMatch = ExGTF_Regex.ArrayMultiLine.Match(line);
+            dictNameValue.Add(baseMatch.Groups[1].Value, (Array)dictValue[baseMatch.Groups[2].Value]);
             var arrayValueName = string.Empty;
             while ((line = sr.ReadLine()) != null && !line.Contains("##]"))
             {
