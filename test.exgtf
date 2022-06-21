@@ -9,7 +9,11 @@ namespace EGTF.Reader
         <#cw#>
         //Console.WriteLine("Дмитрий-123");
         Console.WriteLine("<$userName$>-<$password$>");
-        [#Console.WriteLine("<$users$>");#]
-        [<i:!{1..10}!Console.WriteLine("{!i!}")>]
+        [#Console.WriteLine("<$users$>-<$users$>");#]
+        [<i:!{1..10}!Console.WriteLine("{!i!}");>]
+        [##
+        //hello
+        Console.WriteLine("<$users$>-<$users$>");
+        ##]
     }
 }
