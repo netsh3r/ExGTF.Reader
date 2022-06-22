@@ -18,7 +18,50 @@ namespace ExGTF.Reader
             this.dictValue = dictValue;
         }
 
-        public void Create(string createUrl, string fileName = null)
+        public void Create(string createUrl, bool isNeedCreate = true, string fileName = null)
+        {
+            var (result, newFileName) = GetResult();
+            var path = string.Concat(createUrl, "\\", fileName ?? newFileName, ".cs");
+            if (isNeedCreate)
+            {
+                CreateNewFile(result, path);
+            }
+            else
+            {
+                UpdateExistFile(result, path);
+            }
+        }
+
+        private void CreateNewFile(string result, string path)
+        {
+            //TODO: потом доработать
+            using var sw = new StreamWriter(path);
+            sw.WriteLine(result);
+        }
+
+        private void UpdateExistFile(string result, string path)
+        {
+            var sb = new StringBuilder();
+            using (var sr = new StreamReader(path))
+            {
+                string line = string.Empty;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    sb.AppendLine(line);
+                    if (line.Contains("#ExGTF_Compiling%start%#"))
+                    {
+                        sb.Append(result);
+                    }
+                }
+            }
+
+            using (var sw = new StreamWriter(path))
+            {
+                sw.WriteLine(sb.ToString());
+            }
+        }
+
+        private (string result, string fileName) GetResult()
         {
             var fi = new FileInfo(url);
             var newFileName = fi.Name.Substring(0, fi.Name.Length - 6);
@@ -65,11 +108,7 @@ namespace ExGTF.Reader
                 }
             }
 
-            //TODO: потом доработать
-            using (var sr2 = new StreamWriter($"{createUrl}/{fileName ?? newFileName}.cs"))
-            {
-                sr2.WriteLine(sb.ToString());
-            }
+            return (sb.ToString(), newFileName);
         }
 
         private void AppendMultiArrayLine(string line, StringBuilder sb, StreamReader sr)
