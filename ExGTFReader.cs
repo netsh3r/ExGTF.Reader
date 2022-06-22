@@ -20,8 +20,8 @@ namespace ExGTF.Reader
 
         public void Create(string createUrl, bool isNeedCreate = true, string fileName = null)
         {
-            var (result, newFileName) = GetResult();
-            var path = string.Concat(createUrl, "\\", fileName ?? newFileName, ".cs");
+            var (result, newFileName, extension) = GetResult();
+            var path = string.Concat(createUrl, "\\", fileName ?? newFileName, ".", extension);
             if (isNeedCreate)
             {
                 CreateNewFile(result, path);
@@ -34,7 +34,6 @@ namespace ExGTF.Reader
 
         private void CreateNewFile(string result, string path)
         {
-            //TODO: потом доработать
             using var sw = new StreamWriter(path);
             sw.WriteLine(result);
         }
@@ -61,21 +60,19 @@ namespace ExGTF.Reader
             }
         }
 
-        private (string result, string fileName) GetResult()
+        private (string result, string fileName, string extension) GetResult()
         {
             var fi = new FileInfo(url);
             var newFileName = fi.Name.Substring(0, fi.Name.Length - 6);
+            var extension = string.Empty;
             var sb = new StringBuilder();
 
             using (var sr = new StreamReader(url))
             {
                 var header = sr.ReadLine();
-                if (!header.Contains("@*"))
-                {
-                    var rg = new Regex("@(.*)@");
-                    newFileName = rg.Match(header).Groups[1].Value;
-                }
-
+                var rgFileName = ExGTF_Regex.FileName.Match(header);
+                newFileName = rgFileName.Groups[1].Value;
+                extension = rgFileName.Groups[2].Value;
                 var line = string.Empty;
                 while ((line = sr.ReadLine()) != null)
                 {
@@ -83,7 +80,7 @@ namespace ExGTF.Reader
                 }
             }
 
-            return (sb.ToString(), newFileName);
+            return (sb.ToString(), newFileName, extension);
         }
 
         private void AppendLine(string line, StringBuilder sb, StreamReader sr)

@@ -10,7 +10,8 @@ namespace ExGTF.Reader
         
         public class ExGTF_Regex
         {
-            public static readonly Regex FileName = new Regex("@(.*)@");
+            /// <summary> Название файла </summary>
+            public static readonly Regex FileName = new Regex(@"@(.*)@.(\w*)");
             
             /// <summary> Вставка отдельной строки </summary>
             public static readonly Regex SingleLine = new Regex(@"(<#(\w*)#>)");
