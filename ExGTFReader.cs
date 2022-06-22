@@ -101,7 +101,7 @@ namespace ExGTF.Reader
                     {
                         AppendMultiArrayLine(line, sb, sr);
                     }
-                    else
+                    else if (!line.Trim().StartsWith("^!"))
                     {
                         sb.AppendLine(line);
                     }

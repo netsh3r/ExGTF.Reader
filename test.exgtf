@@ -6,14 +6,16 @@ namespace EGTF.Reader
     public class Class1
     {
         //Console.WriteLine("Hello World");
-        //<#userName#>
+        //<#table_rus_name#>
         //Console.WriteLine("Дмитрий-123");
-        Console.WriteLine("<$userName$>-<$password$>");
-        [#Console.WriteLine("<$users$>-<$users$>");#]
+        Console.WriteLine("<table_rus_name>-<short_table_name>");
+        [#Console.WriteLine("<rowCodes>-<rowCodes>");#]
+
         [<i:!{1..10}!Console.WriteLine("{!i!}");>]
-        [##<i:%$users$%
+        [##<i:%rowCodes%
         //hello
         Console.WriteLine("{%i%}-<$userName$>");
         >##]
+        ^!Комментарий
     }
 }
