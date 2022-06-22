@@ -19,7 +19,7 @@ namespace ExGTF.Reader
             public static readonly Regex Single = new Regex(@"(<\$(\w*)\$>)");
             
             /// <summary> Вставка массива значений построчно </summary>
-            public static readonly Regex ArrayLine = new Regex(@"(\[#(.*)#\])");
+            public static readonly Regex ArrayLine = new Regex(@"(\[#<(\w*):(<\$(\w*)\$>)(.*)>#\])");
             
             /// <summary> Массив внутренних значений </summary>
             public static readonly Regex LocalArrayLine = new Regex(@"(\[<(.*)>\])");
@@ -31,6 +31,9 @@ namespace ExGTF.Reader
 
             /// <summary СВойство массива </summary>
             public static readonly Regex ArrayProps = new Regex(@"({%(\w*)%})");
+
+            /// <summary> Условие для блока </summary>
+            public static readonly Regex BlockCondition = new Regex(@"\[??({(<\$(\w*)\$>)([!<>=]{1,2})(%(.*)%)})");
         }
     }
 }

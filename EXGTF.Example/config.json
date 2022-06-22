@@ -1,14 +1,14 @@
 {
   "Provider": {
     "Path": "C:\\Users\\dmitr\\Documents\\Tests",
-    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\RTN_reports\\reportProvider.exgtf"
+    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\RTN_reports\\test.exgtf"
   },
   "Map": {
     "Path": "C:\\Users\\dmitr\\Documents\\Tests",
-    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\RTN_reports\\reportMap.exgtf"
+    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\RTN_reports\\test.exgtf"
   },
   "Entity": {
     "Path": "C:\\Users\\dmitr\\Documents\\Tests",
-    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\RTN_reports\\rtnEntity.exgtf"
+    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\RTN_reports\\test.exgtf"
   }
 }

@@ -8,14 +8,28 @@ namespace EGTF.Reader
         //Console.WriteLine("Hello World");
         //<#table_rus_name#>
         //Console.WriteLine("Дмитрий-123");
-        Console.WriteLine("<table_rus_name>-<short_table_name>");
-        [#Console.WriteLine("<rowCodes>-<rowCodes>");#]
-
+        Console.WriteLine("<$table_rus_name$>-<$short_table_name$>");
+        [#<i:<$rowCodes$>Console.WriteLine("{%i%}-{%i%}");>#]
         [<i:!{1..10}!Console.WriteLine("{!i!}");>]
-        [##<i:%rowCodes%
-        //hello
-        Console.WriteLine("{%i%}-<$userName$>");
-        >##]
+        [##<i:%$rowCodes$%
+		[??{<$table_rus_name$>==%123%}
+		//Да
+		??]
+		[??{<$table_rus_name$>!=%123%}
+		//Нет
+		??]
+        /// <summary>
+        /// Код строки {%i%}
+        /// </summary>
+        [Display("Код строки {%i%}")]
+        public virtual string RowCode{%i%} {{ get; set; }}
+		>##]
         ^!Комментарий
+		[??{<$table_rus_name$>==%123%}
+		//Да
+		??]
+		[??{<$table_rus_name$>!=%123%}
+		//Нет
+		??]
     }
 }

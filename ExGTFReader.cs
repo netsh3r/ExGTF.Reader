@@ -79,36 +79,78 @@ namespace ExGTF.Reader
                 var line = string.Empty;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (ExGTF_Regex.SingleLine.IsMatch(line))
-                    {
-                        AppendSingleLine(line, sb);
-                        sb.AppendLine();
-                    }
-                    else if (ExGTF_Regex.LocalArrayLine.IsMatch(line))
-                    {
-                        AppendLocalArrayLine(line, sb);
-                    }
-                    else if (ExGTF_Regex.ArrayLine.IsMatch(line))
-                    {
-                        AppendArrayLine(line, sb);
-                    }
-                    else if (ExGTF_Regex.Single.IsMatch(line))
-                    {
-                        AppendSingle(line, sb);
-                        sb.AppendLine();
-                    }
-                    else if (line.Contains("[##"))
-                    {
-                        AppendMultiArrayLine(line, sb, sr);
-                    }
-                    else if (!line.Trim().StartsWith("^!"))
-                    {
-                        sb.AppendLine(line);
-                    }
+                    AppendLine(line, sb, sr);
                 }
             }
 
             return (sb.ToString(), newFileName);
+        }
+
+        private void AppendLine(string line, StringBuilder sb, StreamReader sr)
+        {
+            if (line.Contains("^!"))
+            {
+                return;
+            }
+            
+            if (line.Contains("[##"))
+            {
+                AppendMultiArrayLine(line, sb, sr);
+            }
+            else if (line.Contains("[??"))
+            {
+                AppendConditionLine(line, sb, sr);
+            }
+            else if (ExGTF_Regex.SingleLine.IsMatch(line))
+            {
+                AppendSingleLine(line, sb);
+                sb.AppendLine();
+            }
+            else if (ExGTF_Regex.LocalArrayLine.IsMatch(line))
+            {
+                AppendLocalArrayLine(line, sb);
+            }
+            else if (ExGTF_Regex.ArrayLine.IsMatch(line))
+            {
+                AppendArrayLine(line, sb);
+            }
+            else if (ExGTF_Regex.Single.IsMatch(line))
+            {
+                AppendSingle(line, sb);
+                sb.AppendLine();
+            }
+            else
+            {
+                sb.AppendLine(line);
+            }
+        }
+
+        private void AppendConditionLine(string line, StringBuilder sb, StreamReader sr)
+        {
+            var lSb = new StringBuilder();
+            var baseMatch = ExGTF_Regex.BlockCondition.Match(line);
+            var res = GetResultCondition(dictValue[baseMatch.Groups[3].Value].ToString(),
+                baseMatch.Groups[4].Value,
+                baseMatch.Groups[6].Value);
+
+            while (!(line = sr.ReadLine()).Contains("??]"))
+            {
+                if (res)
+                {
+                    AppendLine(line, sb, sr);   
+                }
+            }
+        }
+
+        
+        private bool GetResultCondition(string value1, string op, string value2)
+        {
+            return op switch
+            {
+                "!=" => value1 != value2,
+                "==" => value1 == value2,
+                _ => throw new Exception($"Невозможно обоработать оператор: {op}")
+            };
         }
 
         private void AppendMultiArrayLine(string line, StringBuilder sb, StreamReader sr)
@@ -140,11 +182,6 @@ namespace ExGTF.Reader
                         }
                     }
                 }
-                else if (ExGTF_Regex.Single.IsMatch(line))
-                {
-                    AppendSingle(line, lSb);
-                    lSb.AppendLine();
-                }
                 else if (ExGTF_Regex.ArrayProps.IsMatch(line))
                 {
                     AppendBase(line, lSb, ExGTF_Regex.ArrayProps, "{0}");
@@ -152,7 +189,7 @@ namespace ExGTF.Reader
                 }
                 else
                 {
-                    lSb.AppendLine(line);
+                    AppendLine(line, lSb, sr);
                 }
             }
 
@@ -195,20 +232,32 @@ namespace ExGTF.Reader
 
         private void AppendArrayLine(string line, StringBuilder sb)
         {
-            var m = ExGTF_Regex.ArrayLine.Match(line).Groups[2];
             var msp = ExGTF_Regex.ArrayLine.Split(line);
-            if (ExGTF_Regex.Single.IsMatch(m.Value))
+            var arrayGroups = ExGTF_Regex.ArrayLine.Match(line).Groups;
+            var arrayName = arrayGroups[4].Value;
+            var arrayLine = arrayGroups[5].Value;
+            var lSb = new StringBuilder();
+            if (ExGTF_Regex.ArrayProps.IsMatch(arrayLine))
             {
-                var mr2 = ExGTF_Regex.Single.Match(m.Value);
-                var sp = ExGTF_Regex.Single.Split(m.Value);
-                foreach (var val in (Array)dictValue[mr2.Groups[2].Value])
+                lSb.Append(msp[0]);
+                var sp = ExGTF_Regex.ArrayProps.Split(arrayLine);
+                for (int i = 0; i<sp.Length; i++)
                 {
-                    sb.AppendLine();
-                    sb.Append($"{msp[0]}");
-                    AppendSingle(m.Value, sb, val);
+                    if(ExGTF_Regex.ArrayProps.IsMatch(sp[i]))
+                    {
+                        AppendBase(sp[i], lSb, ExGTF_Regex.ArrayProps, "{0}");
+                        i++;
+                    }
+                    else
+                    {
+                        lSb.Append(sp[i]);
+                    }
                 }
-
-                sb.AppendLine();
+            }
+            
+            foreach (var val in (Array)dictValue[arrayName])
+            {
+                sb.AppendLine(string.Format(lSb.ToString(), val));
             }
         }
 
