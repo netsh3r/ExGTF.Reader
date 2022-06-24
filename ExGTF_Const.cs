@@ -38,6 +38,12 @@ namespace ExGTF.Reader
 
             /// <summary> Массив объектов </summary>
             public static readonly Regex ArrayWithObjects = new Regex(@"\[##<\{(\w*),(\w*)}:%(\w*)%>");
+            
+            /// <summary> Массив объектов </summary>
+            public static readonly Regex ArrayWithObjectsNew = new Regex(@"\[##<\{(.*)\}:%(\w*)%>");
+            
+            /// <summary> Массив объектов </summary>
+            public static readonly Regex ArrayWithObjectsValues = new Regex(@"(\w*),?\1{0,}");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using ExGTF_Regex = ExGTF.Reader.ExGTF_Const.ExGTF_Regex;
@@ -160,35 +161,43 @@ namespace ExGTF.Reader
         private void AppendMultiArrayObjectsLine(string line, StringBuilder sb, StreamReader sr)
         {
             var lSb = new StringBuilder();
-            var baseMatch = ExGTF_Regex.ArrayWithObjects.Match(line);
-            (string name, int index) arrayValueName1 = (baseMatch.Groups[1].Value, 0);
-            (string name, int index) arrayValueName2 = (baseMatch.Groups[2].Value, 1);
-            var arrayName = baseMatch.Groups[3].Value;
-            var rg1 = new Regex(@$"({{%({arrayValueName1.name})%}})");
-            var rg2 = new Regex(@$"({{%({arrayValueName2.name})%}})");
+            var baseMatch = ExGTF_Regex.ArrayWithObjectsNew.Match(line);
+            var values = ExGTF_Regex.ArrayWithObjectsValues.Matches(baseMatch.Groups[1].Value);
+            var arrayName = baseMatch.Groups[2].Value;
+            var dictArrValues = new Dictionary<int, (string name, Regex regex)>();
+            values.ForEach((val, index) =>
+            {
+                var gv = val.Groups[1].Value;
+                if (!string.IsNullOrWhiteSpace(gv))
+                {
+                    dictArrValues.Add(index, (gv, new Regex(@$"({{%({gv})%}})")));   
+                }
+            });
+
             while ((line = sr.ReadLine()) != null && !line.Contains("##]"))
             {
-                lSb.AppendLine();
                 if (ExGTF_Regex.ArrayProps.IsMatch(line))
                 {
-                    if (rg1.IsMatch(line) && rg2.IsMatch(line))
+                    var result = line;
+                    foreach (var value in dictArrValues.Where(value => value.Value.regex.IsMatch(result)))
                     {
-                        var result = rg1.Replace(line, $"{{{arrayValueName1.index}}}");
-                        lSb.Append(rg2.Replace(result, $"{{{arrayValueName2.index}}}"));
+                        result = value.Value.regex.Replace(result, $"{{{value.Key}}}");
                     }
-                    else if (rg1.IsMatch(line))
-                    {
-                        lSb.Append(rg1.Replace(line, $"{{{arrayValueName1.index}}}"));
-                    } else
-                    {
-                        lSb.Append(rg2.Replace(line, $"{{{arrayValueName2.index}}}"));
-                    }
+                    
+                    lSb.AppendLine(result);
+                }
+                else
+                {
+                    lSb.AppendLine(line);
                 }
             }
 
-            foreach (var valObj in ((string, string)[])dictValue[arrayName])
+            foreach (Dictionary<string, string> valObj in (Dictionary<string, string>[])dictValue[arrayName])
             {
-                sb.AppendLine(string.Format(lSb.ToString(), valObj.Item1, valObj.Item2));
+                var s = valObj;
+                var result = dictArrValues.OrderBy(x => x.Key)
+                    .Select(x => valObj[x.Value.name]).ToArray();
+                sb.AppendLine(string.Format(lSb.ToString(), result));
             }
         }
 

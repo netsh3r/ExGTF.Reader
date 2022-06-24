@@ -1,4 +1,6 @@
-﻿namespace ExGTF.Example
+﻿using Newtonsoft.Json.Linq;
+
+namespace ExGTF.Example
 {
     using ExGTF.Reader;
     using Newtonsoft.Json;
@@ -21,8 +23,18 @@
                 }
                 else if (d.IsArrayObjects)
                 {
-                    var arV = JsonConvert.DeserializeObject<RowColumnWithComment[]>(d.Value.ToString()).Select(x => (x.Number, x.Message)).ToArray<(string, string)>();
-                    @params.Add(d.Name, arV);
+                    var arV = JsonConvert.DeserializeObject<object[]>(d.Value.ToString());
+                    var arVresult = new List<Dictionary<string, string>>();
+                    foreach (JObject val in arV)
+                    {
+                        var arD = new Dictionary<string, string>();
+                        foreach (var jVal in val)
+                        {
+                            arD.Add(jVal.Key, jVal.Value.ToString());
+                        }
+                        arVresult.Add(arD);
+                    }
+                    @params.Add(d.Name, arVresult.ToArray());
                 }
                 else
                 {

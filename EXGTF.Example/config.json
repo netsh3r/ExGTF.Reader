@@ -1,14 +1,14 @@
 {
   "Provider": {
-    "Path": "C:\\Users\\dmitr\\source\\repos",
-    "Template": "C:\\Users\\dmitr\\source\\repos\\ExGTF.Reader\\test.exgtf"
+    "Path": "C:\\Users\\dmitr\\Documents\\Tests",
+    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\EGTF.Reader\\test.exgtf"
   },
   "Map": {
-    "Path": "C:\\Users\\dmitr\\source\\repos",
-    "Template": "C:\\Users\\dmitr\\source\\repos\\ExGTF.Reader\\test.exgtf"
+    "Path": "C:\\Users\\dmitr\\Documents\\Tests",
+    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\EGTF.Reader\\test.exgtf"
   },
   "Entity": {
-    "Path": "C:\\Users\\dmitr\\source\\repos",
-    "Template": "C:\\Users\\dmitr\\source\\repos\\ExGTF.Reader\\test.exgtf"
+    "Path": "C:\\Users\\dmitr\\Documents\\Tests",
+    "Template": "C:\\Users\\dmitr\\Documents\\Tests\\EGTF.Reader\\test.exgtf"
   }
 }
