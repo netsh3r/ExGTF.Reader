@@ -94,6 +94,26 @@ Console.WriteLine("{%i%}-<$userName$>");
 ``` 
 Где ```{%i%}``` -> внутренний элемент массива, а ```<$userName$>``` - значение из словаря
 
+Если необходимо работать с массивом объектов необходимо использовать следующую запись:
+```
+[##<{Number,Message}:%rowCodesWithSomething%>
+//{%Number%}-{%Message%}
+##]
+```
+где json Объектов должен быть:
+```
+{
+    "Name": "rowCodesWithSomething",
+    "IsArrayObjects": "True",
+    "Value": [
+      {
+        "Number": "1",
+        "Message": "hello"
+      }
+    ]
+  }
+```
+
 Для работы с условиями можно использовать следующий вариант:
 ```
 [??{<$table_rus_name$>==%123%}
