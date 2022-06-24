@@ -25,11 +25,10 @@ namespace ExGTF.Reader
             return arVresult.ToArray();
         }
 
-        public static Dictionary<string, object> GetParams(string json)
+        public static Dictionary<string, object> GetParams(DictValue[] dictValues)
         {
-            var dict = JsonConvert.DeserializeObject<DictValue[]>(json);
             var @params = new Dictionary<string, object>();
-            foreach (var d in dict)
+            foreach (var d in dictValues)
             {
                 if (d.IsArray)
                 {
@@ -48,6 +47,12 @@ namespace ExGTF.Reader
             }
 
             return @params;
+        }
+        
+        public static Dictionary<string, object> GetParams(string json)
+        {
+            var dict = JsonConvert.DeserializeObject<DictValue[]>(json);
+            return GetParams(dict);
         }
     }
 }
