@@ -160,7 +160,36 @@ namespace ExGTF.Reader
         private void AppendMultiArrayObjectsLine(string line, StringBuilder sb, StreamReader sr)
         {
             var lSb = new StringBuilder();
-            var baseMatch = ExGTF_Regex.ArrayMultiLine.Match(line);
+            var baseMatch = ExGTF_Regex.ArrayWithObjects.Match(line);
+            (string name, int index) arrayValueName1 = (baseMatch.Groups[1].Value, 0);
+            (string name, int index) arrayValueName2 = (baseMatch.Groups[2].Value, 1);
+            var arrayName = baseMatch.Groups[3].Value;
+            var rg1 = new Regex(@$"({{%({arrayValueName1.name})%}})");
+            var rg2 = new Regex(@$"({{%({arrayValueName2.name})%}})");
+            while ((line = sr.ReadLine()) != null && !line.Contains("##]"))
+            {
+                lSb.AppendLine();
+                if (ExGTF_Regex.ArrayProps.IsMatch(line))
+                {
+                    if (rg1.IsMatch(line) && rg2.IsMatch(line))
+                    {
+                        var result = rg1.Replace(line, $"{{{arrayValueName1.index}}}");
+                        lSb.Append(rg2.Replace(result, $"{{{arrayValueName2.index}}}"));
+                    }
+                    else if (rg1.IsMatch(line))
+                    {
+                        lSb.Append(rg1.Replace(line, $"{{{arrayValueName1.index}}}"));
+                    } else
+                    {
+                        lSb.Append(rg2.Replace(line, $"{{{arrayValueName2.index}}}"));
+                    }
+                }
+            }
+
+            foreach (var valObj in ((string, string)[])dictValue[arrayName])
+            {
+                sb.AppendLine(string.Format(lSb.ToString(), valObj.Item1, valObj.Item2));
+            }
         }
 
         private void AppendMultiArrayLine(string line, StringBuilder sb, StreamReader sr)

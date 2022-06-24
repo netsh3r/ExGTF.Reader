@@ -35,8 +35,7 @@ namespace EGTF.Reader
 		//{%i%}
 		##]
 		[##<{i,j}:%rowCodesWithSomething%>
-		//{%i%}
-		//{%j%}
+		//{%i%}{%j%}
 		##]
     }
 }
