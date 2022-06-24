@@ -13,9 +13,19 @@
   },
   {
     "Name": "rowCodes",
-    "ObjectType": "Array",
+    "IsArray": "True",
     "Value": [
       "1","2"
+    ]
+  },
+  {
+    "Name": "rowCodesWithSomething",
+    "IsArrayObjects": "True",
+    "Value": [
+      {
+        "Number": "1",
+        "Message": "hello"
+      }
     ]
   }
 ]

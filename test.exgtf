@@ -31,5 +31,12 @@ namespace EGTF.Reader
 		[??{<$table_rus_name$>!=%123%}
 		//Нет
 		??]
+		[##<i:%$rowCodes$%
+		//{%i%}
+		##]
+		[##<{i,j}:%rowCodesWithSomething%>
+		//{%i%}
+		//{%j%}
+		##]
     }
 }

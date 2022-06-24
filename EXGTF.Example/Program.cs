@@ -14,9 +14,14 @@
             var @params = new Dictionary<string, object>();
             foreach (var d in dict)
             {
-                if (d.ObjectType != null && d.ObjectType == "Array")
+                if (d.IsArray)
                 {
                     var arV = JsonConvert.DeserializeObject<string[]>(d.Value.ToString());
+                    @params.Add(d.Name, arV);
+                }
+                else if (d.IsArrayObjects)
+                {
+                    var arV = JsonConvert.DeserializeObject<RowColumnWithComment[]>(d.Value.ToString());
                     @params.Add(d.Name, arV);
                 }
                 else
@@ -25,12 +30,12 @@
                 }
             }
             
-            var rd = new ExGTFReader(config.Provider.Template, @params);
-            rd.Create(config.Provider.Path, true,"Form8_12SvodyReport");
-            var rdMap = new ExGTFReader(config.Map.Template, @params);
-            rdMap.Create(config.Provider.Path, true,"Form8_12ShowCaseMap");
-            var rdEntity = new ExGTFReader(config.Entity.Template, @params);
-            rdEntity.Create(config.Provider.Path, true, "Form8_12ShowCase");
+            // var rd = new ExGTFReader(config.Provider.Template, @params);
+            // rd.Create(config.Provider.Path, true,"Form8_12SvodyReport");
+            // var rdMap = new ExGTFReader(config.Map.Template, @params);
+            // rdMap.Create(config.Provider.Path, true,"Form8_12ShowCaseMap");
+            // var rdEntity = new ExGTFReader(config.Entity.Template, @params);
+            // rdEntity.Create(config.Provider.Path, true, "Form8_12ShowCase");
         }
     }
 }

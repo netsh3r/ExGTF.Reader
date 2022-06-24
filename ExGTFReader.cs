@@ -92,7 +92,14 @@ namespace ExGTF.Reader
             
             if (line.Contains("[##"))
             {
-                AppendMultiArrayLine(line, sb, sr);
+                if (ExGTF_Regex.ArrayMultiLine.IsMatch(line))
+                {
+                    AppendMultiArrayLine(line, sb, sr);   
+                }
+                else if (ExGTF_Regex.ArrayWithObjects.IsMatch(line))
+                {
+                    AppendMultiArrayObjectsLine(line, sb, sr);
+                }
             }
             else if (line.Contains("[??"))
             {
@@ -148,6 +155,12 @@ namespace ExGTF.Reader
                 "==" => value1 == value2,
                 _ => throw new Exception($"Невозможно обоработать оператор: {op}")
             };
+        }
+
+        private void AppendMultiArrayObjectsLine(string line, StringBuilder sb, StreamReader sr)
+        {
+            var lSb = new StringBuilder();
+            var baseMatch = ExGTF_Regex.ArrayMultiLine.Match(line);
         }
 
         private void AppendMultiArrayLine(string line, StringBuilder sb, StreamReader sr)

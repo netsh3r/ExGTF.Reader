@@ -35,6 +35,9 @@ namespace ExGTF.Reader
 
             /// <summary> Условие для блока </summary>
             public static readonly Regex BlockCondition = new Regex(@"\[??({(<\$(\w*)\$>)([!<>=]{1,2})(%(.*)%)})");
+
+            /// <summary> Массив объектов </summary>
+            public static readonly Regex ArrayWithObjects = new Regex(@"\[##<\{(\w*),(\w*)}:%(\w*)%>");
         }
     }
 }

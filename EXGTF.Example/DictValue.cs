@@ -9,7 +9,8 @@ namespace ExGTF.Example
     internal class DictValue
     {
         public string Name { get; set; }
-        public string ObjectType { get; set; }
+        public bool IsArray { get; set; } = false;
+        public bool IsArrayObjects { get; set; } = false;
         public object Value { get; set; }
     }
 }
