@@ -4,6 +4,7 @@ namespace ExGTF.Example
 {
     using ExGTF.Reader;
     using Newtonsoft.Json;
+    using ExGTF_Params = ExGTF.Reader.ParamsHelper;
 
     internal class Program
     {
@@ -23,17 +24,7 @@ namespace ExGTF.Example
                 }
                 else if (d.IsArrayObjects)
                 {
-                    var arV = JsonConvert.DeserializeObject<object[]>(d.Value.ToString());
-                    var arVresult = new List<Dictionary<string, string>>();
-                    foreach (JObject val in arV)
-                    {
-                        var arD = new Dictionary<string, string>();
-                        foreach (var jVal in val)
-                        {
-                            arD.Add(jVal.Key, jVal.Value.ToString());
-                        }
-                        arVresult.Add(arD);
-                    }
+                    var arVresult = ExGTF_Params.GetArrayObjectParams(d.Value.ToString());
                     @params.Add(d.Name, arVresult.ToArray());
                 }
                 else
