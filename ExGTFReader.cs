@@ -192,7 +192,7 @@ namespace ExGTF.Reader
                 }
             }
 
-            foreach (Dictionary<string, string> valObj in (Dictionary<string, string>[])dictValue[arrayName])
+            foreach (Dictionary<string, string> valObj in (Array)dictValue[arrayName])
             {
                 var s = valObj;
                 var result = dictArrValues.OrderBy(x => x.Key)
