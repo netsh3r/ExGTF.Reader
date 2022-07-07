@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace ExGTF.Reader
@@ -12,6 +13,26 @@ namespace ExGTF.Reader
             {
                 action.Invoke(val, i++);
             }
+        }
+
+        public static string Get(this Dictionary<string, object> dict, string key)
+        {
+            if (dict.TryGetValue(key, out var value))
+            {
+                return value.ToString();
+            }
+
+            return string.Empty;
+        }
+
+        public static Array GetArray(this Dictionary<string, object> dict, string key)
+        {
+            if (dict.TryGetValue(key, out var value) && value is Array array)
+            {
+                return array;
+            }
+
+            return Array.Empty<object>();
         }
     }
 }

@@ -8,6 +8,9 @@ using ExGTF_Regex = ExGTF.Reader.ExGTF_Const.ExGTF_Regex;
 
 namespace ExGTF.Reader
 {
+    /// <summary>
+    /// Чтение данных
+    /// </summary>
     public class ExGTFReader
     {
         private readonly string url;
@@ -19,6 +22,12 @@ namespace ExGTF.Reader
             this.dictValue = dictValue;
         }
 
+        /// <summary>
+        /// Сгенерировать шаблон
+        /// </summary>
+        /// <param name="createUrl">путь до конечного расположения нового файла</param>
+        /// <param name="isNeedCreate">Нужно ли создавать файл</param>
+        /// <param name="fileName">Название файла</param>
         public void Create(string createUrl, bool isNeedCreate = true, string fileName = null)
         {
             var (result, newFileName, extension) = GetResult();
@@ -134,7 +143,7 @@ namespace ExGTF.Reader
         {
             var lSb = new StringBuilder();
             var baseMatch = ExGTF_Regex.BlockCondition.Match(line);
-            var res = GetResultCondition(dictValue[baseMatch.Groups[3].Value].ToString(),
+            var res = GetResultCondition(dictValue.Get(baseMatch.Groups[3].Value).ToString(),
                 baseMatch.Groups[4].Value,
                 baseMatch.Groups[6].Value);
 
@@ -147,7 +156,6 @@ namespace ExGTF.Reader
             }
         }
 
-        
         private bool GetResultCondition(string value1, string op, string value2)
         {
             return op switch
@@ -192,11 +200,11 @@ namespace ExGTF.Reader
                 }
             }
 
-            foreach (Dictionary<string, string> valObj in (Array)dictValue[arrayName])
+            foreach (Dictionary<string, string> valObj in dictValue.GetArray(arrayName))
             {
-                var s = valObj;
                 var result = dictArrValues.OrderBy(x => x.Key)
                     .Select(x => valObj[x.Value.name]).ToArray();
+
                 sb.AppendLine(string.Format(lSb.ToString(), result));
             }
         }
@@ -241,7 +249,7 @@ namespace ExGTF.Reader
                 }
             }
 
-            foreach (var value in (Array)dictValue[arrayName])
+            foreach (var value in dictValue.GetArray(arrayName))
             {
                 sb.AppendLine(string.Format(lSb.ToString(), value));
             }
@@ -254,7 +262,7 @@ namespace ExGTF.Reader
             {
                 if (ExGTF_Regex.SingleLine.IsMatch(sp[i]))
                 {
-                    sb.AppendLine(dictValue[sp[++i]].ToString());
+                    sb.AppendLine(dictValue.Get(sp[++i]).ToString());
                 }
                 else
                 {
@@ -289,7 +297,7 @@ namespace ExGTF.Reader
             {
                 lSb.Append(msp[0]);
                 var sp = ExGTF_Regex.ArrayProps.Split(arrayLine);
-                for (int i = 0; i<sp.Length; i++)
+                for (int i = 0; i < sp.Length; i++)
                 {
                     if(ExGTF_Regex.ArrayProps.IsMatch(sp[i]))
                     {
@@ -303,7 +311,7 @@ namespace ExGTF.Reader
                 }
             }
             
-            foreach (var val in (Array)dictValue[arrayName])
+            foreach (var val in dictValue.GetArray(arrayName))
             {
                 sb.AppendLine(string.Format(lSb.ToString(), val));
             }
@@ -317,7 +325,7 @@ namespace ExGTF.Reader
                 if (reg.IsMatch(sp[i]))
                 {
                     ++i;
-                    sb.Append(value ?? dictValue[sp[i]]);
+                    sb.Append(value ?? dictValue.Get(sp[i]));
                 }
                 else
                 {
